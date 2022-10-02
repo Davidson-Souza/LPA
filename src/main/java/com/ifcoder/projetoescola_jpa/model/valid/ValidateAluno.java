@@ -35,6 +35,11 @@ public class ValidateAluno {
 
         if(matricula.isEmpty())
             throw new AlunoException("Error - Campo vazio: 'matricula'.");
+
+        ValidateMatricula valid = new ValidateMatricula();
+        if(!valid.validateMatricula(matricula)) {
+            throw new AlunoException("Error - Campo inválido: 'matricula'.");
+        }
         aluno.setMatricula(matricula);
         
         int anoInt = 0;

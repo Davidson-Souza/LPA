@@ -7,8 +7,12 @@ package com.ifcoder.projetoescola_jpa.view;
 
 import com.ifcoder.projetoescola_jpa.controller.ProfessorController;
 import com.ifcoder.projetoescola_jpa.model.Professor;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 import model.exceptions.ProfessorException;
 
 /**
@@ -25,33 +29,40 @@ public class FrProfessor extends javax.swing.JFrame {
         this.telaAnterior = telaQueChamou;        
         profController = new ProfessorController();
         cpfProfessorEditando = "-";
-        
+        this.adicionarMascaraNosCampos();
         initComponents();
         this.habilitarCampos(false);
         this.limparCampos();
-
+        this.adicionarMascaraNosCampos();        
         edtListagem.setText(profController.imprimirListaProfessores());
     }
-
+    public void adicionarMascaraNosCampos() {
+        try {
+            MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
+            maskCPF.install(mskCPF);                                    
+        } catch (ParseException ex) {
+            Logger.getLogger(FrAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void habilitarCampos(boolean flag) {
         edtNome.setEnabled(flag);
         edtSexo.setEnabled(flag);
         edtIdade.setEnabled(flag);
-        edtCPF.setEnabled(flag);
+        mskCPF.setEnabled(flag);
     }
 
     public void limparCampos() {
         edtNome.setText("");
         edtSexo.setText("");
         edtIdade.setText("");
-        edtCPF.setText("");
+        mskCPF.setText("");
     }
 
     public void preencherFormulario(Professor p) {
         edtNome.setText(p.getNome());
         edtSexo.setText(p.getSexo() + "");
         edtIdade.setText(p.getIdade() + "");
-        edtCPF.setText(p.getCpf());
+        mskCPF.setText(p.getCpf());
     }
 
     /**
@@ -76,9 +87,9 @@ public class FrProfessor extends javax.swing.JFrame {
         lblNome1 = new javax.swing.JLabel();
         edtIdade = new javax.swing.JTextField();
         lblNome2 = new javax.swing.JLabel();
-        edtCPF = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         edtListagem = new javax.swing.JTextArea();
+        mskCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -144,6 +155,12 @@ public class FrProfessor extends javax.swing.JFrame {
         edtListagem.setRows(5);
         jScrollPane1.setViewportView(edtListagem);
 
+        mskCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mskCPFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,18 +188,17 @@ public class FrProfessor extends javax.swing.JFrame {
                         .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addComponent(lblNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(mskCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblSexo)
                         .addGap(18, 18, 18)
-                        .addComponent(edtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(edtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -210,7 +226,7 @@ public class FrProfessor extends javax.swing.JFrame {
                     .addComponent(lblNome1)
                     .addComponent(edtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNome2)
-                    .addComponent(edtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mskCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -228,9 +244,9 @@ public class FrProfessor extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             if (!cpfProfessorEditando.equals("-")) {
-                profController.atualizarProfessor(cpfProfessorEditando, edtNome.getText(), edtSexo.getText(), edtIdade.getText(), edtCPF.getText());
+                profController.atualizarProfessor(cpfProfessorEditando, edtNome.getText(), edtSexo.getText(), edtIdade.getText(), mskCPF.getText());
             } else {
-                profController.cadastrarProfessor(edtNome.getText(), edtSexo.getText(), edtIdade.getText(), edtCPF.getText());
+                profController.cadastrarProfessor(edtNome.getText(), edtSexo.getText(), edtIdade.getText(), mskCPF.getText());
             }
 
             cpfProfessorEditando = "-";
@@ -279,6 +295,10 @@ public class FrProfessor extends javax.swing.JFrame {
         this.telaAnterior.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
+    private void mskCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mskCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mskCPFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -286,7 +306,6 @@ public class FrProfessor extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtCPF;
     private javax.swing.JTextField edtIdade;
     private javax.swing.JTextArea edtListagem;
     private javax.swing.JTextField edtNome;
@@ -297,5 +316,6 @@ public class FrProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome1;
     private javax.swing.JLabel lblNome2;
     private javax.swing.JLabel lblSexo;
+    private javax.swing.JFormattedTextField mskCPF;
     // End of variables declaration//GEN-END:variables
 }

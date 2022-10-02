@@ -174,6 +174,12 @@ public class FrAluno extends javax.swing.JFrame {
 
         lblSexo1.setText("Ano:");
 
+        fEdtMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fEdtMatriculaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panFormularioLayout = new javax.swing.GroupLayout(panFormulario);
         panFormulario.setLayout(panFormularioLayout);
         panFormularioLayout.setHorizontalGroup(
@@ -384,6 +390,10 @@ public class FrAluno extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         this.telaAnterior.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void fEdtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fEdtMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fEdtMatriculaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
